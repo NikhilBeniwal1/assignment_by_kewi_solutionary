@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dash/flutter_dash.dart';
 
-class ComplaintTrackingPage extends StatelessWidget {
+class ComplaintTrackingPage extends StatefulWidget {
+  @override
+  State<ComplaintTrackingPage> createState() => _ComplaintTrackingPageState();
+}
+
+class _ComplaintTrackingPageState extends State<ComplaintTrackingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -9,86 +15,103 @@ class ComplaintTrackingPage extends StatelessWidget {
         title: Text("Complaint Tracking", style: TextStyle(fontWeight: FontWeight.bold)),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(8.0),
         child: Column(
+
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              "It usually takes about 4 hours to finish this job.",
-              style: TextStyle(fontSize: 14, color: Colors.grey),
-            ),
-            SizedBox(height: 16),
-            Expanded(
-              child: Stack(
+            Container(
+              decoration: BoxDecoration(color: Color.fromRGBO(245, 245, 245, 1)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Continuous dotted line from top to bottom
-                  Positioned(
-                    left: 12, // Aligns with icons
-                    top: 0,
-                    bottom: 0,
-                    child: DottedLine(
-                      color: Colors.green,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Text(
+                      "It usually takes about 4 hours to finish this job.",
+                      style: TextStyle(fontSize: 18, color: Color.fromRGBO(126, 126, 126, 1)),
                     ),
                   ),
-                  // Timeline items
-                  ListView(
-                    children: [
-                      buildTimelineItem(
-                        icon: Icons.report_problem,
-                        iconColor: Colors.blue,
-                        title: "Complaint Raised",
-                        time: "On Mon, 12 Mar At 2:32 pm",
-                        content: "Preferred Date/Time:\n12 Mar, 2024 07:00 PM",
-                      ),
-                      buildComplaintDetails(
-                        title: "Air Conditioning",
-                        subtitle: "Low Cooling",
-                        images: [
-                          'assets/images/ac1.png',
-                          'assets/images/ac1.png',
-                        ],
-                      ),
-                      buildTimelineItem(
-                        icon: Icons.assignment_turned_in,
-                        iconColor: Colors.orange,
-                        title: "Task Assigned",
-                        time: "On Mon, 12 Mar At 3:15 pm",
-                      ),
-                      buildStaffInfo(
-                        name: "Ramesh Jadhav",
-                        details: "On Mon, 12 Mar\nRamesh Jadhav will address your complaint at 6 pm.\nWe’ll try to resolve within the below preferred time:\n16 Mar, 2024 07:00 PM",
-                      ),
-                      buildTimelineItem(
-                        icon: Icons.location_on,
-                        iconColor: Colors.blue,
-                        title: "Staff On Site",
-                        time: "On Mon, 12 Mar At 5:45 pm",
-                        content: "Complaint is in progress",
-                      ),
-                      buildTimelineItem(
-                        icon: Icons.check_circle,
-                        iconColor: Colors.green,
-                        title: "Complaint Resolved",
-                        time: "On Mon, 12 Mar At 6:30 pm",
-                        content: "Issue successfully resolved",
-                      ),
-                    ],
-                  ),
-
                 ],
               ),
             ),
-            InkWell(
-              onTap: (){// Add feedback action
-                },
-              child: Image.asset("assets/images/feedback.png"),
-            ),
+            SizedBox(height: 16),
+            Expanded(
+              child: ListView(
+                children: [
+                  Stack(
+                    children: [
+                      // Continuous dotted line with a fixed height
+                      Positioned(
+                        left: 28, // Aligns with icons
+                        top: 20,
+                        bottom: 0,
+                        child: DottedLine(
+                          color: Colors.green,
+                          height: 280, // Adjust height as needed
+                        ),
+                      ),
+                      // Timeline items
+                      Column(
+                        children: [
+                          buildTimelineItem(
+                            iconUrl: "assets/images/complaint_raised.png",
+                            iconColor: Color.fromRGBO(4, 195, 224, 1),
+                            title: "Complaint Raised",
+                            time: "On Mon, 12 Mar\nAt 2:32 pm",
+                            content: "Preferred Date/Time:\n12 Mar, 2024 07:00 PM",
+                          ),
+                          buildComplaintDetails(
+                            title: "Air Conditioning",
+                            subtitle: "Low Cooling",
+                            images: [
+                              'assets/images/ac1.png',
+                              'assets/images/ac1.png',
+                              'assets/images/ac1.png',
+                            ],
+                          ),
+                          buildTimelineItem(
+                            iconUrl: "assets/images/task_assigned.png",
+                            iconColor: Color.fromRGBO(235, 106, 2, 1),
+                            title: "Task Assigned",
+                            time: "On Mon, 12 Mar\nAt 3:15 pm",
+                          ),
+                          buildStaffInfo(
+                            name: "Ramesh Jadhav",
+                            date: "On Mon, 12 Mar",
+                          address_person: "Ramesh Jadhav will address your complaint at 6 pm.",
+                            try_to_resolve: "We’ll try to resolve within the below preferred time:\n16 Mar, 2024 07:00 PM",
 
-            SizedBox(height: 8),
-            Text(
-              "Your Feedback, Our Fuel for Improvement!",
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.black),
+                          ),
+                          buildTimelineItem(
+                            iconUrl: "assets/images/staff.png",
+                            iconColor: Colors.blue,
+                            title: "Staff On Site",
+                            time: "On Mon, 12 Mar\nAt 5:45 pm",
+                            content: "Complaint is in progress",
+                          ),
+                          buildTimelineItem(
+                            iconUrl: "assets/images/complaint_resolve.png",
+                            iconColor: Colors.green,
+                            title: "Complaint Resolved",
+                            time: "On Mon, 12 Mar\nAt 6:30 pm",
+                            content: "Issue successfully resolved",
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 16),
+                  Image.asset("assets/images/feedback.png"),
+                  Text(
+                    "Your Feedback, Our Fuel for Improvement!",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  SizedBox(height: 16),
+
+                ],
+              ),
             ),
           ],
         ),
@@ -97,7 +120,7 @@ class ComplaintTrackingPage extends StatelessWidget {
   }
 
   Widget buildTimelineItem({
-    required IconData icon,
+    required String iconUrl,
     required Color iconColor,
     required String title,
     required String time,
@@ -110,25 +133,35 @@ class ComplaintTrackingPage extends StatelessWidget {
         children: [
           Column(
             children: [
-              Icon(icon, color: iconColor),
+              CircleAvatar(
+                  radius: 30,
+                  backgroundColor: Colors.transparent,
+                  child: Image.asset(iconUrl)),
             ],
           ),
           SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-                SizedBox(height: 4),
-                Text(time, style: TextStyle(color: Colors.grey)),
-                if (content != null) ...[
-                  SizedBox(height: 8),
-                  Text(content, style: TextStyle(color: Colors.black)),
+          Flexible(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(245, 245, 245, 1),
+                borderRadius: BorderRadius.all(Radius.circular(12)),
+              ),
+              padding: EdgeInsets.all(8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(fontWeight: FontWeight.w100, fontSize: 16, color: iconColor),
+                  ),
+                  SizedBox(height: 4),
+                  Text(time, style: TextStyle(color: Colors.black, fontSize: 12)),
+                  if (content != null) ...[
+                    SizedBox(height: 8),
+                    Text(content, style: TextStyle(color: Colors.black)),
+                  ],
                 ],
-              ],
+              ),
             ),
           ),
         ],
@@ -144,57 +177,108 @@ class ComplaintTrackingPage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Row(
-        //crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-              Text(title, style: TextStyle(fontSize: 16, color: Colors.blue)),
-              Text(subtitle, style: TextStyle(color: Colors.grey)),
-              SizedBox(height: 8),
-              Row(
-
-                children: images
-                    .map((image) => Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: Image.asset(
-                    image,
-                    width: 100,
-                    height: 100,
-                    fit: BoxFit.cover,
-                  ),
-                ))
-                    .toList(),
-              ),
-            ],),
+          CircleAvatar(
+            radius: 30,
+            backgroundColor: Colors.transparent,
           ),
-
+          SizedBox(width: 16),
+          Flexible(
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: Color.fromRGBO(245, 245, 245, 1),
+              ),
+              padding: EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title, style: TextStyle(fontSize: 16, color: Color.fromRGBO(4, 195, 224, 1), fontWeight: FontWeight.w100)),
+                  SizedBox(height: 8),
+                  Text(subtitle, style: TextStyle(color: Colors.black)),
+                  SizedBox(height: 8),
+                  Row(
+                    children: images.map((image) {
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Image.asset(
+                            image,
+                            width: 100,
+                            height: 100,
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget buildStaffInfo({required String name, required String details}) {
+  Widget buildStaffInfo({
+    required String name,
+    required String date,
+    required String try_to_resolve,
+    required String address_person ,
+
+  }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CircleAvatar(
-            backgroundColor: Colors.orange,
-            child: Image.asset("assets/images/staff.png"),
+            radius: 30,
+            backgroundColor: Colors.transparent,
           ),
           SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(name, style: TextStyle(fontWeight: FontWeight.bold)),
-                SizedBox(height: 8),
-                Text(details),
-              ],
+          Flexible(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              padding: EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(width: 5),
+                      Image.asset("assets/images/profile_icon.png", height: 50, width: 50),
+                      SizedBox(width: 5),
+                      Text(name, style: TextStyle(fontWeight: FontWeight.w100, fontSize: 16)),
+                      Spacer(),
+                      Image.asset("assets/images/call_icon.png", height: 50, width: 50),
+                      SizedBox(width: 5),
+                    ],
+                  ),
+                  Dash(
+                    direction: Axis.horizontal,
+                    length: MediaQuery.of(context).size.width * 0.75,
+                    dashColor: Colors.grey,
+                    dashLength: 4.0,
+                    dashGap: 3.0,
+                    dashThickness: 1.0,
+                  ),
+                  SizedBox(height: 8),
+                  Text(date,style: TextStyle(fontSize: 20)),
+                  SizedBox(height: 8),
+
+                  Text(address_person,style: TextStyle(fontSize: 20)),
+                  SizedBox(height: 8),
+
+                  Text(try_to_resolve,style: TextStyle(fontSize: 14,color: Colors.grey)),
+                ],
+              ),
             ),
           ),
         ],
@@ -205,23 +289,29 @@ class ComplaintTrackingPage extends StatelessWidget {
 
 class DottedLine extends StatelessWidget {
   final Color color;
+  final double height;
 
-  const DottedLine({required this.color});
+  const DottedLine({required this.color, required this.height});
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return Column(
-          children: List.generate((constraints.maxHeight / 4).floor(), (index) {
+    return SizedBox(
+      height: height,
+      child: SingleChildScrollView(
+        child: Column(
+          children: List.generate((height / 4).floor(), (index) {
             return Container(
-              width: 2,
-              height: 4,
-              color: index % 2 == 0 ? color : Colors.transparent,
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),
+                color: color,
+
+              ),
+              width: 2.5,
+              height: 9,
+              margin: EdgeInsets.symmetric(vertical: 2),
             );
           }),
-        );
-      },
+        ),
+      ),
     );
   }
 }
