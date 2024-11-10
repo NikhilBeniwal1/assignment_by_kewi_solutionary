@@ -68,6 +68,9 @@ class _ComplaintTrackingPageState extends State<ComplaintTrackingPage> {
                               'assets/images/ac1.png',
                               'assets/images/ac1.png',
                               'assets/images/ac1.png',
+                              'assets/images/ac1.png',
+                              'assets/images/ac1.png',
+                              'assets/images/ac1.png',
                             ],
                           ),
                           buildTimelineItem(
@@ -193,26 +196,40 @@ class _ComplaintTrackingPageState extends State<ComplaintTrackingPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: TextStyle(fontSize: 16, color: Color.fromRGBO(4, 195, 224, 1), fontWeight: FontWeight.w100)),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Color.fromRGBO(4, 195, 224, 1),
+                      fontWeight: FontWeight.w100,
+                    ),
+                  ),
                   SizedBox(height: 8),
-                  Text(subtitle, style: TextStyle(color: Colors.black)),
+                  Text(
+                    subtitle,
+                    style: TextStyle(color: Colors.black),
+                  ),
                   SizedBox(height: 8),
-                  Row(
-                    children: images.map((image) {
-                      return Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: images.map((image) {
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Image.asset(
+                              image,
+                              width: 100,
+                              height: 100,
+                             // fit: BoxFit.cover,
+                            ),
                           ),
-                          child: Image.asset(
-                            image,
-                            width: 100,
-                            height: 100,
-                          ),
-                        ),
-                      );
-                    }).toList(),
+                        );
+                      }).toList(),
+                    ),
                   ),
                 ],
               ),
@@ -222,6 +239,7 @@ class _ComplaintTrackingPageState extends State<ComplaintTrackingPage> {
       ),
     );
   }
+
 
   Widget buildStaffInfo({
     required String name,
